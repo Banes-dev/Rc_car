@@ -18,7 +18,6 @@
 # include <stddef.h>          // size_t
 # include <stdarg.h>          // fonction va_
 
-# include <include/hidapi_winapi.h>          // Interaction avec dispositifs USB et Bluetooth HID (Human Interface Device)
-# include <include/hidapi.h>          // Interaction avec dispositifs USB et Bluetooth HID (Human Interface Device)
+# include <hidapi/hidapi.h>          // Interaction avec dispositifs USB et Bluetooth HID (Human Interface Device)
 
 #endif

@@ -9,23 +9,53 @@
 /* ******************************************* */
 
 #include "lib_rc_car.h"
-// #include <stdio.h>          		 // printf
-// #include "include/hidapi.h"          // Interaction avec dispositifs USB et Bluetooth HID (Human Interface Device)
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
 
 int main()
 {
-	printf("\nRc car Project by Banes\n-------------------\n(Personnal Project)\n-------------------\n");
-	printf("\nCopyright Banes and Reltik Studio\n\n");   // ©️
+	printf("\n\033[35mRc car Project by \033[33mBanes\033[0m\n\033[35m-------------------\n(Personnal Project)\n-------------------\n");
+	printf("\nCopyright \033[33mBanes\033[0m \033[35mand \033[36mReltik Studio\033[0m\n\n");   // ©️
 
 	// Init library HIDAPI
-	if (hid_init()) {
-		printf("Failed to initialize HIDAPI.\n");
+	if (hid_init())
+	{
+		printf("\033[31mFailed to initialize HIDAPI.\033[0m\n");
 		return (-1);
     }
 	// Search to connect ps4 controller
-	// hid_device *controller = hid_open(0x054C, 0x05C4, NULL); // Identifiants USB pour la manette PS4
-    // if (!controller) {
-    //     printf("Failed to open PS4 controller.\n");
-    //     return (-1);
-    // }
+	hid_device *controller = hid_open(0x054C, 0x05C4, NULL); // Identifiants USB pour la manette PS4
+    if (!controller)
+	{
+        printf("\033[31mFailed to open PS4 controller.\033[0m\n");
+        return (-1);
+    }
+	else
+	{
+		// Read the PS4 controller
+		unsigned char buffer[1024];
+		while (1)
+		{
+			int res = hid_read(controller, buffer, sizeof(buffer));
+			if (res < 0)
+			{
+				printf("\033[31mError of readinf controller.\033[0m\n");
+				break;
+			}
+			int i = 0;
+			while (buffer[i] != '\0')
+			{
+				ft_putchar(buffer[i]);
+				i++;
+			}
+			
+			// lire les boutons
+		}
+	}
+
+	hid_close(controller);
+	hid_exit();
 }
