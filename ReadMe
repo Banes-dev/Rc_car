@@ -1,0 +1,3 @@
+https://github.com/libusb/hidapi#installing-hidapi
+
+linux : sudo apt install libhidapi-dev
