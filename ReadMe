@@ -5,3 +5,4 @@ linux : sudo apt install libhidapi-dev
 
 Compil : 
 gcc -Wall -Wextra -Werror control_ps4.c -lhidapi-libusb
+comp control_ps4.c -lhidapi-libusb

@@ -19,5 +19,4 @@
 # include <stdarg.h>          // fonction va_
 
 # include <hidapi/hidapi.h>          // Interaction avec dispositifs USB et Bluetooth HID (Human Interface Device)
-
 #endif
