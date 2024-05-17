@@ -7,7 +7,7 @@ pygame.init()
 pygame.joystick.init()
 
 # Vérifier si une manette est connectée
-if pygame.joystick.get_count() == 0:
+if pygame.joystick.get_count() == 1:
     print("Aucune manette détectée.")
 else:
     # Prendre la première manette connectée
@@ -26,11 +26,11 @@ else:
                     running = False
                 
                 # Gestion des événements de joystick
-                if event.type == pygame.JOYAXISMOTION:
-                    # Mouvements des axes (sticks analogiques)
-                    axis = event.axis
-                    value = event.value
-                    print(f"Axis {axis} moved to {value:.2f}")
+                # if event.type == pygame.JOYAXISMOTION:
+                #     # Mouvements des axes (sticks analogiques)
+                #     axis = event.axis
+                #     value = event.value
+                #     print(f"Axis {axis} moved to {value:.2f}")
 
                 if event.type == pygame.JOYBUTTONDOWN:
                     # Bouton pressé
