@@ -25,25 +25,24 @@ else:
                 if event.type == pygame.QUIT:
                     running = False
                 
-                # Gestion des événements de joystick
+                # Mouvements des axes (sticks analogiques)
                 if event.type == pygame.JOYAXISMOTION:
-                    # Mouvements des axes (sticks analogiques)
                     axis = event.axis
                     value = event.value
                     print(f"Axis {axis} moved to {value:.2f}")
 
+                 # Bouton pressé
                 if event.type == pygame.JOYBUTTONDOWN:
-                    # Bouton pressé
                     button = event.button
                     print(f"Button {button} pressed")
 
-                if event.type == pygame.JOYBUTTONUP:
-                    # Bouton relâché
-                    button = event.button
-                    print(f"Button {button} released")
+                # Bouton relâché
+                # if event.type == pygame.JOYBUTTONUP:
+                #     button = event.button
+                #     print(f"Button {button} released")
 
+                # Mouvement du D-Pad (croix directionnelle)
                 if event.type == pygame.JOYHATMOTION:
-                    # Mouvement du D-Pad (croix directionnelle)
                     hat = event.hat
                     value = event.value
                     print(f"Hat {hat} moved to {value}")
