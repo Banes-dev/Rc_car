@@ -26,10 +26,10 @@ else:
                     running = False
                 
                 # Mouvements des axes (sticks analogiques)
-                if event.type == pygame.JOYAXISMOTION:
-                    axis = event.axis
-                    value = event.value
-                    print(f"Axis {axis} moved to {value:.2f}")
+                # if event.type == pygame.JOYAXISMOTION:
+                #     axis = event.axis
+                #     value = event.value
+                #     print(f"Axis {axis} moved to {value:.2f}")
 
                  # Bouton pressé
                 if event.type == pygame.JOYBUTTONDOWN:
