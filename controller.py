@@ -1,3 +1,22 @@
+# Index of buttons for the ps4 controller : 
+# croix = 0
+# rond = 1
+# triangle = 2
+# carré = 3
+
+# L1 = 4
+# R1 = 5
+# L2 = 6
+# R2 = 7
+
+# Share = 8
+# Options = 9
+# Ps = 10
+
+# joystick gauche = 11
+# joystick droit = 12
+
+
 import pygame
 
 # Initialiser pygame
