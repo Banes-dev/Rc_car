@@ -4,9 +4,11 @@ from time import sleep
 servo = AngularServo(18, min_pulse_width=0.0006, max_pulse_width=0.0023)
 
 while (True):
-    servo.angle = 180
-    sleep(2)
-    servo.angle = 0
-    sleep(2)
-    servo.angle = -180
-    sleep(2)
+    servo.angle = -20
+    sleep(0.2)
+    servo.angle = 90
+    sleep(0.2)
+    servo.angle = -20
+    sleep(0.2)
+    servo.angle = -90
+    sleep(0.2)
