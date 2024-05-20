@@ -66,6 +66,15 @@ else:
                     value = event.value
                     print(f"Hat {hat} moved to {value}")
 
+                # Function for get joystick left value
+                def get_left_joystick():
+                    if event.type == pygame.JOYAXISMOTION:
+                        axis = event.axis
+                        if axis == 1:
+                            value = event.value
+                            print(f"Axis {axis} moved to {value:.2f}")
+                            return value
+
     except KeyboardInterrupt:
         print("Programme interrompu par l'utilisateur.")
 
