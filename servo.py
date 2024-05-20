@@ -13,14 +13,14 @@ while (True):
         # transfor joystick nb with map function between -20 and 90
     # if nb_joystick > 0
         # transfor joystick nb with map function between -90 and 0
-    servo.angle = -20
-    sleep(0.2)
+    servo.angle = 0
+    sleep(2)
     servo.angle = 90
-    sleep(0.2)
-    servo.angle = -20
-    sleep(0.2)
+    sleep(2)
+    servo.angle = 0
+    sleep(2)
     servo.angle = -90
-    sleep(0.2)
+    sleep(2)
 
 # Export function
 def reset_servo():
