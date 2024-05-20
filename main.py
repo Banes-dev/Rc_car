@@ -1,38 +1,39 @@
-import controller 
+import controller
 import servo
-from servo import reset_servo
+from multiprocessing import Process
+from time import sleep
 
-try:
-    reset_servo()
-    # # Boucle principale
-    # running = True
-    # while running:
-    #     # Gérer les événements pygame
-    #     for event in pygame.event.get():
-    #         if event.type == pygame.QUIT:
-    #             running = False
-            
-    #         # Mouvements des axes (sticks analogiques)
-    #         # if event.type == pygame.JOYAXISMOTION:
-    #         #     axis = event.axis
-    #         #     value = event.value
-    #         #     print(f"Axis {axis} moved to {value:.2f}")
-    #          # Bouton pressé
-    #         if event.type == pygame.JOYBUTTONDOWN:
-    #             button = event.button
-    #             print(f"Button {button} pressed")
-    #         # Bouton relâché
-    #         # if event.type == pygame.JOYBUTTONUP:
-    #         #     button = event.button
-    #         #     print(f"Button {button} released")
-    #         # Mouvement du D-Pad (croix directionnelle)
-    #         if event.type == pygame.JOYHATMOTION:
-    #             hat = event.hat
-    #             value = event.value
-    #             print(f"Hat {hat} moved to {value}")
-except KeyboardInterrupt:
-    reset_servo()
-    print("Programme interrompu par l'utilisateur.")
-finally:
-    # Fermer correctement
-    print("Program as quit.")
+def run_controller(queue):
+    joystick = controller.check_manette()
+    if joystick:
+        while True:
+            value = controller.get_left_joystick_value(joystick)
+            queue.put(value)
+            sleep(0.1)
+
+def run_servo(queue):
+    while True:
+        if not queue.empty():
+            value = queue.get()
+            servo.control_servo(value)
+
+if __name__ == "__main__":
+    from multiprocessing import Queue
+
+    queue = Queue()
+    controller_process = Process(target=run_controller, args=(queue,))
+    servo_process = Process(target=run_servo, args=(queue,))
+
+    controller_process.start()
+    servo_process.start()
+
+    try:
+        controller_process.join()
+        servo_process.join()
+    except KeyboardInterrupt:
+        servo.reset_servo()
+        print("Programme interrompu par l'utilisateur.")
+    finally:
+        controller_process.terminate()
+        servo_process.terminate()
+        print("Program as quit.")
