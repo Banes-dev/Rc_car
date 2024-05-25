@@ -26,8 +26,8 @@ def reset_servo():
     servo.angle = 0
 
 if __name__ == "__main__":
-    joystick = controller.check_manette()
-    if joystick:
+    # joystick = controller.check_manette()
+    # if joystick:
         while True:
             # value = controller.get_left_joystick_value(joystick)
             servo.angle = 0
