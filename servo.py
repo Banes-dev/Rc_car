@@ -24,7 +24,7 @@ def check_manette():
         return controller
 
 def control_servo(value):
-    angle = map_value(value, -1, 1, -90, 90)
+    angle = map_value(value, -1, 1, 90, -90)
     servo.angle = angle
     print(f"Servo angle: {angle}")
 
@@ -39,7 +39,7 @@ if controller:
             pygame.event.pump()  # Nécessaire pour actualiser les événements Pygame
             value = controller.get_axis(0)  # Utilisation de l'axe 0 (joystick gauche, axe X)
             control_servo(value)
-            sleep(0.1)
+            sleep(0.01)
     except KeyboardInterrupt:
         print("Interruption par l'utilisateur.")
         reset_servo()
