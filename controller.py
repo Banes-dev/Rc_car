@@ -43,4 +43,4 @@ if __name__ == "__main__":
         while True:
             value = get_left_joystick_value(joystick)
             print(f"Valeur du joystick gauche : {value:.2f}")
-            pygame.time.wait(10)
+            pygame.time.wait(100)

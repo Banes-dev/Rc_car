@@ -9,7 +9,7 @@ servo = AngularServo(18, min_pulse_width=0.0003, max_pulse_width=0.0023)
 
 def control_servo(value):
     angle_test = map_value(value, -1, 1, -90, 90)
-    servo.angle = angle_test
+    servo.angle = 90
     print(f"Servo angle: {angle_test}")
 
 def reset_servo():
@@ -21,4 +21,4 @@ if __name__ == "__main__":
         while True:
             value = controller.get_left_joystick_value(joystick)
             control_servo(value)
-            sleep(0.01)
+            sleep(0.1)
