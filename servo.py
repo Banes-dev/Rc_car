@@ -30,5 +30,7 @@ if __name__ == "__main__":
     if joystick:
         while True:
             value = controller.get_left_joystick_value(joystick)
-            control_servo(value)
-            sleep(0.1)
+            servo.angle = value
+            sleep(0.2)
+            # control_servo(value)
+            # sleep(0.1)
