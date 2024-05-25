@@ -10,7 +10,7 @@ pygame.joystick.init()
 def map_value(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
-servo = AngularServo(18, min_pulse_width=0.0003, max_pulse_width=0.0023)
+servo = AngularServo(18, min_pulse_width=0.0003, max_pulse_width=0.0013)
 
 
 def check_manette():
@@ -41,7 +41,7 @@ if controller:
             control_servo(value)
             sleep(0.01)
     except KeyboardInterrupt:
-        print("Interruption par l'utilisateur.")
         reset_servo()
+        print("Interruption par l'utilisateur.")
 else:
     print("Connexion de la manette échouée.")
