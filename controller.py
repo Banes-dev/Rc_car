@@ -20,27 +20,27 @@ import pygame
 
 # Initialiser pygame
 pygame.init()
-pygame.joystick.init()
+pygame.controller.init()
 
 def check_manette():
-    if pygame.joystick.get_count() == 0:
+    if pygame.controller.get_count() == 0:
         print("Aucune manette détectée.")
         return None
     else:
-        joystick = pygame.joystick.Joystick(0)
-        joystick.init()
-        print(f"Manette détectée : {joystick.get_name()}")
-        return joystick
+        controller = pygame.controller.Joystick(0)
+        controller.init()
+        print(f"Manette détectée : {controller.get_name()}")
+        return controller
 
-def get_left_joystick_value(joystick):
+def get_left_joystick_value(controller):
     pygame.event.pump()  # Processer les événements
-    axis = joystick.get_axis(1)  # Axe vertical du joystick gauche
+    axis = controller.get_axis(1)  # Axe vertical du joystick gauche
     return axis
 
 if __name__ == "__main__":
-    joystick = check_manette()
-    if joystick:
+    controller = check_manette()
+    if controller:
         while True:
-            value = get_left_joystick_value(joystick)
+            value = get_left_joystick_value(controller)
             print(f"Valeur du joystick gauche : {value:.2f}")
             pygame.time.wait(100)
