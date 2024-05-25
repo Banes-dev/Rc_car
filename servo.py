@@ -25,8 +25,11 @@ def check_manette():
 
 def control_servo(value):
     angle = map_value(value, -1, 1, 90, -90)
-    servo.angle = angle
-    print(f"Servo angle: {angle}")
+    if angle > 20 and angle < -20:
+        servo.angle = angle
+    else:
+        servo.angle = 0
+    # print(f"Servo angle: {angle}")
 
 def reset_servo():
     servo.angle = 0
