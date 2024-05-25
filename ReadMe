@@ -1,8 +1,3 @@
-https://github.com/libusb/hidapi#installing-hidapi
+Project for control different part of my future Rc Car.
 
-linux : sudo apt install libhidapi-dev
-
-
-Compil : 
-gcc -Wall -Wextra -Werror control_ps4.c -lhidapi-libusb
-comp control_ps4.c -lhidapi-libusb
+I manage firstly my servo motor for turn, after this my motor for forward and after this i want to put a camera and connect my pc or my phone for control the car with different controller like ps4 controller, steering weel, keyboard and simply with a button on the app.
