@@ -25,7 +25,7 @@ def check_manette():
 
 def control_servo(value):
     angle = map_value(value, -1, 1, 90, -90)
-    if (angle >= 20) or (angle <= -20):
+    if (angle >= 8) or (angle <= -8):       # deadzone
         servo.angle = angle
     else:
         servo.angle = 0
