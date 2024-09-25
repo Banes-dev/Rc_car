@@ -1,7 +1,7 @@
 #pragma once
 
 #include "iostream"
-// #include "wiringPi.h"
+#include "wiringPi.h"
 
 class Servo
 {
