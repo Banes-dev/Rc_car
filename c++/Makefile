@@ -12,7 +12,7 @@ OBJS = ${FUNC:.cpp=.o}
 all: 	${NAME}
 
 ${NAME}: ${OBJS}
-	${COMP} ${CFLAGS} ${OBJS} -o ${NAME}
+	${COMP} ${CFLAGS} ${OBJS} -o ${NAME} -lwiringPi
 
 clean:	
 	rm -f ${OBJS}
