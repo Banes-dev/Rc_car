@@ -53,9 +53,9 @@ void Servo::MoveServo(int angle)
 
 
 	int pulseWidth = 300 + (angle * 1900) / 180;  // 300µs (min) + la portion de 1900µs en fonction de l'angle
-    int pwmValue = pulseWidth * 2000 / 2200;      // Conversion de la largeur d'impulsion en valeur PWM (0-2000)
+    // int pwmValue = pulseWidth * 2000 / 2200;      // Conversion de la largeur d'impulsion en valeur PWM (0-2000)
 
-    pwmWrite(this->_gpio_pin, pwmValue);          // Écrire le signal PWM
+    pwmWrite(this->_gpio_pin, pulseWidth);          // Écrire le signal PWM
 	std::cout << "Fin move servo" << std::endl;
 	return ;
 }
