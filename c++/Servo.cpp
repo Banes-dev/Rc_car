@@ -38,6 +38,7 @@ Servo::~Servo(void)
 // Other Function
 void Servo::MoveServo(int angle)
 {
+	std::cout << "Debut move servo" << std::endl;
 	if (angle < 0 || angle > 180)
 	{
 		std::cout << "The angle of servo must be between 0 and 180" << std::endl;
@@ -49,4 +50,6 @@ void Servo::MoveServo(int angle)
 
     // Envoyer le signal PWM
     pwmWrite(this->_gpio_pin, pulseWidth);
+	std::cout << "Fin move servo" << std::endl;
+	return ;
 }
