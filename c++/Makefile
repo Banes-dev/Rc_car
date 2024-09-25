@@ -4,7 +4,7 @@ CFLAGS = -g -Wall -Wextra -Werror
 
 # Normal
 NAME = Rc_car
-FUNC = main.cpp ClapTrap.cpp
+FUNC = main.cpp Servo.cpp
 OBJS = ${FUNC:.cpp=.o}
 
 
