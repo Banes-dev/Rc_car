@@ -12,13 +12,13 @@ int main(void)
     while(1)
     {
         std::cout << "← Gauche" << std::endl;
-        servo.MoveServo(0);
-        std::this_thread::sleep_for(std::chrono::seconds(2));
-        std::cout << "→ Droite" << std::endl;
-        servo.MoveServo(180);
+        servo.MoveServo(51);
         std::this_thread::sleep_for(std::chrono::seconds(2));
         std::cout << "↓ Milieux ↓" << std::endl;
-        servo.MoveServo(90);
+        servo.MoveServo(77);
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+        std::cout << "→ Droite" << std::endl;
+        servo.MoveServo(102);
         std::this_thread::sleep_for(std::chrono::seconds(2));
     }
     return (0);
