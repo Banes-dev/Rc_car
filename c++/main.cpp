@@ -12,7 +12,7 @@ int main(void)
     while(1)
     {
         std::cout << "← Gauche" << std::endl;
-        servo.MoveServo(401);
+        servo.MoveServo(272);
         std::this_thread::sleep_for(std::chrono::seconds(2));
         std::cout << "↓ Milieux ↓" << std::endl;
         servo.MoveServo(137);
