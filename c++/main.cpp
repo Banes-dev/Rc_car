@@ -15,7 +15,7 @@ int main(void)
         servo.MoveServo(200);
         std::this_thread::sleep_for(std::chrono::seconds(2));
         std::cout << "↓ Milieux ↓" << std::endl;
-        servo.MoveServo(150);
+        servo.MoveServo(125);
         std::this_thread::sleep_for(std::chrono::seconds(2));
         std::cout << "→ Droite" << std::endl;
         servo.MoveServo(50);
