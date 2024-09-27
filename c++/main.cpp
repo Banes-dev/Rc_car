@@ -15,12 +15,13 @@ int main(int argc, char **argv)
     std::cout << "Test : " << argc << std::endl;
     if (argc != 2)
         return (1);
-	 if (argv[1] != 0 && argv[1] != 1)
+	std::string new_argv1 = argv[1];
+	if (new_argv1 != "0" && new_argv1 != "1")
         return (1);
     Servo servo;
 
     std::cout << "Rc Car started ✔" << std::endl;
-    if (argv[1] == "1")
+    if (new_argv1 == "1")
     {
         Controller controller;
 
