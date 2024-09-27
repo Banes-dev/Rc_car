@@ -15,7 +15,7 @@ int main(int argc, char **argv)
     std::cout << "Test : " << argc << std::endl;
     if (argc != 2)
         return (1);
-	 if (argv[1] != "0" && argv[1] != "1")
+	 if (argv[1] != 0 && argv[1] != 1)
         return (1);
     Servo servo;
 
