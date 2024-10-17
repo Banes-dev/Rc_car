@@ -80,7 +80,7 @@ void Controller::handleEvent(const SDL_Event& event, Servo& servo)
                 std::cout << "Mouvement de l'axe " << (int)event.caxis.axis << " : " << event.caxis.value << std::endl;
                 // deadzone a mettre en place
                 int new_angle = map(event.caxis.value, -1100, 2500, 207, 67);
-                servo->MoveServo(new_angle);
+                servo.MoveServo(new_angle);
                 break;
             }
         default:
