@@ -16,6 +16,5 @@ class Controller
 
         // Other function
         bool isConnected() const;
-        void handleEvent(Servo& servo);
-		// void handleEvent(const SDL_Event& event, Servo& servo);
+		void handleEvent(const SDL_Event& event, Servo& servo);
 };

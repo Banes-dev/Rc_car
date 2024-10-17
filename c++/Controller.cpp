@@ -62,17 +62,16 @@ bool Controller::isConnected() const
 }
 
 // Fonction pour gérer les événements de la manette
-// void Controller::handleEvent(const SDL_Event& event, Servo& servo)
-void Controller::handleEvent(Servo& servo)
+void Controller::handleEvent(const SDL_Event& event, Servo& servo)
 {
     if (!isConnected())
 		return ;
 
-    bool running = true;
-    SDL_Event event;
+    // bool running = true;
+    // SDL_Event event;
 
-    while (running)
-    {
+    // while (running)
+    // {
         while (SDL_PollEvent(&event))
         {
             switch (event.type)
@@ -97,8 +96,8 @@ void Controller::handleEvent(Servo& servo)
                     break;
             }
         }
-        SDL_Delay(16);
-    }
+        // SDL_Delay(16);
+    // }
     // while (event.type)
     // {
     //     if ((int)event.caxis.axis == 0)
