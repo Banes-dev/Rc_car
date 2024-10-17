@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 				if (event.type == SDL_QUIT)
 					running = false;
 				// Gestion des événements liés à la manette
-				controller.handleEvent(event);
+				controller.handleEvent(event, servo);
 			}
 		}
     }

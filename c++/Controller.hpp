@@ -1,6 +1,7 @@
 #pragma once
 
 #include "iostream" 
+#include "Servo.hpp"
 #include "SDL2/SDL.h"
 
 class Controller
@@ -15,5 +16,5 @@ class Controller
 
         // Other function
         bool isConnected() const;
-		void handleEvent(const SDL_Event& event);
+		void handleEvent(const SDL_Event& event, Servo servo);
 };

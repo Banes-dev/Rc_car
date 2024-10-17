@@ -50,6 +50,11 @@ Controller::~Controller(void)
 
 
 // Other Function
+int map(int x, int in_min, int in_max, int out_min, int out_max)
+{
+    return ((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min);
+}
+
 // Vérifie si la manette est connectée et prête à l'emploi
 bool Controller::isConnected() const
 {
@@ -57,21 +62,27 @@ bool Controller::isConnected() const
 }
 
 // Fonction pour gérer les événements de la manette
-void Controller::handleEvent(const SDL_Event& event)
+void Controller::handleEvent(const SDL_Event& event, Servo servo)
 {
     if (!isConnected())
 		return ;
     switch (event.type)
 	{
-        case SDL_CONTROLLERBUTTONDOWN:
-            std::cout << "Bouton " << (int)event.cbutton.button << " pressé." << std::endl;
-            break;
-        case SDL_CONTROLLERBUTTONUP:
-            std::cout << "Bouton " << (int)event.cbutton.button << " relâché." << std::endl;
-            break;
+        // case SDL_CONTROLLERBUTTONDOWN:
+        //     std::cout << "Bouton " << (int)event.cbutton.button << " pressé." << std::endl;
+        //     break;
+        // case SDL_CONTROLLERBUTTONUP:
+        //     std::cout << "Bouton " << (int)event.cbutton.button << " relâché." << std::endl;
+        //     break;
         case SDL_CONTROLLERAXISMOTION:
-            std::cout << "Mouvement de l'axe " << (int)event.caxis.axis << " : " << event.caxis.value << std::endl;
-            break;
+            if ((int)event.caxis.axis)
+            {
+                std::cout << "Mouvement de l'axe " << (int)event.caxis.axis << " : " << event.caxis.value << std::endl;
+                // deadzone a mettre en place
+                int new_angle = map(event.caxis.value, -1100, 2500, 207, 67);
+                servo.MoveServo(new_angle);
+                break;
+            }
         default:
             break;
     }
