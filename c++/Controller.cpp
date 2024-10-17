@@ -91,12 +91,13 @@ void Controller::handleEvent(Servo& servo)
                     break;
                 case SDL_QUIT:
                     std::cout << "Quit event received. Exiting..." << std::endl;
-                    exit(0);
+                    running = false;
                     break;
                 default:
                     break;
             }
         }
+        SDL_Delay(16);
     }
     // while (event.type)
     // {
