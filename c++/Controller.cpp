@@ -68,28 +68,34 @@ void Controller::handleEvent(Servo& servo)
     if (!isConnected())
 		return ;
 
+    bool running = true;
     SDL_Event event;
-    while (SDL_PollEvent(&event))
+
+    while (running)
     {
-        switch (event.type) {
-            case SDL_CONTROLLERAXISMOTION:
-                if (event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX)
-                {
-                    std::cout << "Mouvement de l'axe gauche X : " << event.caxis.value << std::endl;
-                }
-                break;
-            case SDL_CONTROLLERBUTTONDOWN:
-                std::cout << "Bouton " << (int)event.cbutton.button << " pressé." << std::endl;
-                break;
-            case SDL_CONTROLLERBUTTONUP:
-                std::cout << "Bouton " << (int)event.cbutton.button << " relâché." << std::endl;
-                break;
-            case SDL_QUIT:
-                std::cout << "Quit event received. Exiting..." << std::endl;
-                exit(0);
-                break;
-            default:
-                break;
+        while (SDL_PollEvent(&event))
+        {
+            switch (event.type)
+            {
+                case SDL_CONTROLLERAXISMOTION:
+                    if (event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX)
+                    {
+                        std::cout << "Mouvement de l'axe gauche X : " << event.caxis.value << std::endl;
+                    }
+                    break;
+                case SDL_CONTROLLERBUTTONDOWN:
+                    std::cout << "Bouton " << (int)event.cbutton.button << " pressé." << std::endl;
+                    break;
+                case SDL_CONTROLLERBUTTONUP:
+                    std::cout << "Bouton " << (int)event.cbutton.button << " relâché." << std::endl;
+                    break;
+                case SDL_QUIT:
+                    std::cout << "Quit event received. Exiting..." << std::endl;
+                    exit(0);
+                    break;
+                default:
+                    break;
+            }
         }
     }
     // while (event.type)
