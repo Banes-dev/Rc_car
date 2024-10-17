@@ -29,7 +29,11 @@ int main(int argc, char **argv)
 		while (running)
 		{
 			while (SDL_PollEvent(&event))
-				controller.handleEvent(event, servo);
+            {
+                if (event.type == SDL_QUIT)
+					running = false;
+                controller.handleEvent(event, servo);
+            }
             SDL_Delay(16);
 		}
     }
