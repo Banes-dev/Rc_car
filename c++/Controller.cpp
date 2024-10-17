@@ -66,24 +66,35 @@ void Controller::handleEvent(const SDL_Event& event, Servo& servo)
 {
     if (!isConnected())
 		return ;
-    switch (event.type)
-	{
+    while (event.type)
+    {
+        if ((int)event.caxis.axis == 0)
+        {
+            std::cout << "Mouvement de l'axe " << (int)event.caxis.axis << " : " << event.caxis.value << std::endl;
+            // deadzone a mettre en place
+            int new_angle = map(event.caxis.value, -3200, 3200, 207, 67);
+            servo.MoveServo(new_angle);
+            // break;
+        }
+    }
+    // switch (event.type)
+	// {
         // case SDL_CONTROLLERBUTTONDOWN:
         //     std::cout << "Bouton " << (int)event.cbutton.button << " pressé." << std::endl;
         //     break;
         // case SDL_CONTROLLERBUTTONUP:
         //     std::cout << "Bouton " << (int)event.cbutton.button << " relâché." << std::endl;
         //     break;
-        case SDL_CONTROLLERAXISMOTION:
-            // if ((int)event.caxis.axis == 0)
-            // {
-                std::cout << "Mouvement de l'axe " << (int)event.caxis.axis << " : " << event.caxis.value << std::endl;
-                // deadzone a mettre en place
-                int new_angle = map(event.caxis.value, -3200, 3200, 207, 67);
-                servo.MoveServo(new_angle);
-                break;
-            // }
-        default:
-            break;
-    }
+    //     case SDL_CONTROLLERAXISMOTION:
+    //         // if ((int)event.caxis.axis == 0)
+    //         // {
+    //             std::cout << "Mouvement de l'axe " << (int)event.caxis.axis << " : " << event.caxis.value << std::endl;
+    //             // deadzone a mettre en place
+    //             int new_angle = map(event.caxis.value, -3200, 3200, 207, 67);
+    //             servo.MoveServo(new_angle);
+    //             break;
+    //         // }
+    //     default:
+    //         break;
+    // }
 }
