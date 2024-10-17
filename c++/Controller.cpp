@@ -62,42 +62,36 @@ bool Controller::isConnected() const
 }
 
 // Fonction pour gérer les événements de la manette
-void Controller::handleEvent(const SDL_Event& event, Servo& servo)
+// void Controller::handleEvent(const SDL_Event& event, Servo& servo)
+void Controller::handleEvent(Servo& servo)
 {
     if (!isConnected())
 		return ;
 
-    // SDL_Event event;
-    // while (SDL_PollEvent(&event))
-    // {
-    //     switch (event.type) {
-    //         case SDL_CONTROLLERAXISMOTION:
-    //             if (event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX) {
-    //                 std::cout << "Mouvement de l'axe gauche X : " << event.caxis.value << std::endl;
-
-    //                 // Gestion de la deadzone pour éviter des mouvements indésirables
-    //                 const int DEADZONE = 8000;
-    //                 if (abs(event.caxis.value) > DEADZONE) {
-    //                     // Remappage de la valeur de l'axe vers un angle de servo
-    //                     int new_angle = map(event.caxis.value, -32768, 32767, 207, 67);
-    //                     servo.MoveServo(new_angle);
-    //                 }
-    //             }
-    //             break;
-    //         // case SDL_CONTROLLERBUTTONDOWN:
-    //         //     std::cout << "Bouton " << (int)event.cbutton.button << " pressé." << std::endl;
-    //         //     break;
-    //         // case SDL_CONTROLLERBUTTONUP:
-    //         //     std::cout << "Bouton " << (int)event.cbutton.button << " relâché." << std::endl;
-    //         //     break;
-    //         case SDL_QUIT:
-    //             std::cout << "Quit event received. Exiting..." << std::endl;
-    //             exit(0);
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }
+    SDL_Event event;
+    while (SDL_PollEvent(&event))
+    {
+        switch (event.type) {
+            case SDL_CONTROLLERAXISMOTION:
+                if (event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX)
+                {
+                    std::cout << "Mouvement de l'axe gauche X : " << event.caxis.value << std::endl;
+                }
+                break;
+            case SDL_CONTROLLERBUTTONDOWN:
+                std::cout << "Bouton " << (int)event.cbutton.button << " pressé." << std::endl;
+                break;
+            case SDL_CONTROLLERBUTTONUP:
+                std::cout << "Bouton " << (int)event.cbutton.button << " relâché." << std::endl;
+                break;
+            case SDL_QUIT:
+                std::cout << "Quit event received. Exiting..." << std::endl;
+                exit(0);
+                break;
+            default:
+                break;
+        }
+    }
     // while (event.type)
     // {
     //     if ((int)event.caxis.axis == 0)
@@ -109,20 +103,20 @@ void Controller::handleEvent(const SDL_Event& event, Servo& servo)
     //         // break;
     //     }
     // }
-    switch (event.type)
-	{
-        case SDL_CONTROLLERBUTTONDOWN:
-            std::cout << "Bouton " << (int)event.cbutton.button << " pressé." << std::endl;
-            break;
-        case SDL_CONTROLLERBUTTONUP:
-            std::cout << "Bouton " << (int)event.cbutton.button << " relâché." << std::endl;
-            break;
-        case SDL_CONTROLLERAXISMOTION:
-            std::cout << "Mouvement de l'axe " << (int)event.caxis.axis << " : " << event.caxis.value << std::endl;
-            break;
-        default:
-            break;
-    }
+    // switch (event.type)
+	// {
+    //     case SDL_CONTROLLERBUTTONDOWN:
+    //         std::cout << "Bouton " << (int)event.cbutton.button << " pressé." << std::endl;
+    //         break;
+    //     case SDL_CONTROLLERBUTTONUP:
+    //         std::cout << "Bouton " << (int)event.cbutton.button << " relâché." << std::endl;
+    //         break;
+    //     case SDL_CONTROLLERAXISMOTION:
+    //         std::cout << "Mouvement de l'axe " << (int)event.caxis.axis << " : " << event.caxis.value << std::endl;
+    //         break;
+    //     default:
+    //         break;
+    // }
 }
 
         // case SDL_CONTROLLERAXISMOTION:
@@ -134,3 +128,16 @@ void Controller::handleEvent(const SDL_Event& event, Servo& servo)
         //         // servo.MoveServo(new_angle);
         //         break;
         //     // }
+
+
+                // if (event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX) {
+                //     std::cout << "Mouvement de l'axe gauche X : " << event.caxis.value << std::endl;
+
+                //     // Gestion de la deadzone pour éviter des mouvements indésirables
+                //     const int DEADZONE = 8000;
+                //     if (abs(event.caxis.value) > DEADZONE) {
+                //         // Remappage de la valeur de l'axe vers un angle de servo
+                //         int new_angle = map(event.caxis.value, -32768, 32767, 207, 67);
+                //         servo.MoveServo(new_angle);
+                //     }
+                // }
