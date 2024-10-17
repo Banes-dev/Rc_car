@@ -62,7 +62,7 @@ bool Controller::isConnected() const
 }
 
 // Fonction pour gérer les événements de la manette
-void Controller::handleEvent(const SDL_Event& event, const Servo& servo)
+void Controller::handleEvent(const SDL_Event& event, Servo& servo)
 {
     if (!isConnected())
 		return ;
@@ -75,12 +75,12 @@ void Controller::handleEvent(const SDL_Event& event, const Servo& servo)
         //     std::cout << "Bouton " << (int)event.cbutton.button << " relâché." << std::endl;
         //     break;
         case SDL_CONTROLLERAXISMOTION:
-            if ((int)event.caxis.axis)
+            if ((int)event.caxis.axis == 1)
             {
                 std::cout << "Mouvement de l'axe " << (int)event.caxis.axis << " : " << event.caxis.value << std::endl;
                 // deadzone a mettre en place
                 int new_angle = map(event.caxis.value, -1100, 2500, 207, 67);
-                servo.MoveServo(new_angle);
+                servo->MoveServo(new_angle);
                 break;
             }
         default:
