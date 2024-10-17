@@ -90,7 +90,7 @@ void Controller::handleEvent(const SDL_Event& event, Servo& servo)
                     break;
                 case SDL_QUIT:
                     std::cout << "Quit event received. Exiting..." << std::endl;
-                    running = false;
+                    exit(0);
                     break;
                 default:
                     break;
