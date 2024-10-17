@@ -56,13 +56,13 @@ int main(int argc, char **argv)
             // std::this_thread::sleep_for(std::chrono::seconds(2));
 
             std::cout << "← Gauche" << std::endl;
-            servo.MoveServo(220);
+            servo.MoveServo(207);
             std::this_thread::sleep_for(std::chrono::seconds(2));
             std::cout << "↓ Milieux ↓" << std::endl;
-            servo.MoveServo(125);
+            servo.MoveServo(137);
             std::this_thread::sleep_for(std::chrono::seconds(2));
             std::cout << "→ Droite" << std::endl;
-            servo.MoveServo(30);
+            servo.MoveServo(67);
             std::this_thread::sleep_for(std::chrono::seconds(2));
         }
     }
