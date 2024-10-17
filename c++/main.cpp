@@ -45,14 +45,24 @@ int main(int argc, char **argv)
     {
         while(1)
         {
+            // std::cout << "← Gauche" << std::endl;
+            // servo.MoveServo(273);
+            // std::this_thread::sleep_for(std::chrono::seconds(2));
+            // std::cout << "↓ Milieux ↓" << std::endl;
+            // servo.MoveServo(137);
+            // std::this_thread::sleep_for(std::chrono::seconds(2));
+            // std::cout << "→ Droite" << std::endl;
+            // servo.MoveServo(1);
+            // std::this_thread::sleep_for(std::chrono::seconds(2));
+
             std::cout << "← Gauche" << std::endl;
-            servo.MoveServo(273);
+            servo.MoveServo(220);
             std::this_thread::sleep_for(std::chrono::seconds(2));
             std::cout << "↓ Milieux ↓" << std::endl;
-            servo.MoveServo(137);
+            servo.MoveServo(125);
             std::this_thread::sleep_for(std::chrono::seconds(2));
             std::cout << "→ Droite" << std::endl;
-            servo.MoveServo(1);
+            servo.MoveServo(30);
             std::this_thread::sleep_for(std::chrono::seconds(2));
         }
     }
