@@ -21,21 +21,23 @@ int main(int argc, char **argv)
     {
         Controller controller;
 
-		// code avec la manette
-		bool running = true;
-		SDL_Event event;
+        controller.handleEvent(servo);
 
-		// Boucle de gestion des événements
-		while (running)
-		{
-			while (SDL_PollEvent(&event))
-			{
-				if (event.type == SDL_QUIT)
-					running = false;
-				// Gestion des événements liés à la manette
-				controller.handleEvent(event, servo);
-			}
-		}
+		// // code avec la manette
+		// bool running = true;
+		// SDL_Event event;
+
+		// // Boucle de gestion des événements
+		// while (running)
+		// {
+		// 	while (SDL_PollEvent(&event))
+		// 	{
+		// 		if (event.type == SDL_QUIT)
+		// 			running = false;
+		// 		// Gestion des événements liés à la manette
+		// 		controller.handleEvent(event, servo);
+		// 	}
+		// }
     }
     else
     {
