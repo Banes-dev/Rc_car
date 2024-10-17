@@ -28,7 +28,6 @@ int main(int argc, char **argv)
 		// Boucle de gestion des événements
 		while (running)
 		{
-            controller.handleEvent(event, servo);
 			while (SDL_PollEvent(&event))
 				controller.handleEvent(event, servo);
             SDL_Delay(16);
