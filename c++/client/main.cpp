@@ -7,8 +7,8 @@
 
 int main(int argc, char **argv)
 {
-    void(argc);
-    void(argv);
+    (void)argc;
+    (void)argv;
     nRF24L01 module;
 
     std::cout << Blue << " Client started " << Green << "✔" << std::endl;
