@@ -64,6 +64,7 @@ bool Controller::isConnected() const
 // Fonction pour gérer les événements de la manette
 void Controller::handleEvent(const SDL_Event& event, Servo& servo)
 {
+    (void)servo;
     if (!isConnected())
 		return ;
 
