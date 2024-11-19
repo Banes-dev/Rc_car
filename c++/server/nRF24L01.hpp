@@ -16,7 +16,7 @@ class nRF24L01
         ~nRF24L01(void);
 
         // Other function
-        int ReceiveCommand(void);
+        void ReceiveCommand(int &angle, int &power);
 };
 
 // Color

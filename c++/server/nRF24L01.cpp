@@ -39,14 +39,20 @@ nRF24L01::~nRF24L01(void)
 
 
 // Other Function
-int nRF24L01::ReceiveCommand(void)
+void nRF24L01::ReceiveCommand(int &angle, int &power)
 {
     if (radio.available())
     {
-       Command cmd;
-       radio.read(&cmd, sizeof(cmd)); 
-       std::cout << "Commande reçue : [" << cmd.angle_recup << ", " << cmd.power_recup << "]" << std::endl;
-       return(cmd.angle_recup, cmd.power_recup);
+        Command cmd;
+        radio.read(&cmd, sizeof(cmd)); 
+        std::cout << "Commande reçue : [" << cmd.angle_recup << ", " << cmd.power_recup << "]" << std::endl;
+        angle = cmd.angle_recup;
+        power = cmd.power_recup;
+    }
+    else
+    {
+        angle = -1;
+        power = -1;
     }
 	return ;
 }

@@ -1,6 +1,6 @@
-#include "iostream"
-#include "chrono"
-#include "thread"
+#include <iostream>
+#include <chrono>
+#include <thread>
 
 #include "Servo.hpp"
 #include "Controller.hpp"
@@ -11,7 +11,9 @@ int main(int argc, char **argv)
 {
     std::cout << "Test : " << argc << std::endl;
     if (argc != 2)
-        return (1);
+    {
+        return (1);  
+    }
 	std::string new_argv1 = argv[1];
 	if (new_argv1 != "0" && new_argv1 != "1")
         return (1);
@@ -45,7 +47,7 @@ int main(int argc, char **argv)
         int power = 0;
         while (true)
         {
-            angle, power = module.ReceiveCommand(void);
+            angle, power = module.ReceiveCommand(angle, power);
             std::cout << "Angle : " << angle << " Power : " << power << std::endl;
         }
         // while(1)
