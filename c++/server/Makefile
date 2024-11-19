@@ -4,7 +4,7 @@ CFLAGS = -g -Wall -Wextra -Werror
 
 # Normal
 NAME = Rc_car
-FUNC = main.cpp Servo.cpp Controller.cpp
+FUNC = main.cpp Servo.cpp Controller.cpp nRF24L01.cpp
 OBJS = ${FUNC:.cpp=.o}
 
 
@@ -12,7 +12,10 @@ OBJS = ${FUNC:.cpp=.o}
 all: 	${NAME}
 
 ${NAME}: ${OBJS}
-	${COMP} ${CFLAGS} ${OBJS} -o ${NAME} -lwiringPi -lSDL2
+	${COMP} ${CFLAGS} ${OBJS} -o ${NAME} -lwiringPi -lSDL2 -lrf24
+
+%.o: %.cpp
+	${COMP} ${CFLAGS} -c $< -o $@
 
 clean:	
 	rm -f ${OBJS}

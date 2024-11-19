@@ -4,6 +4,7 @@
 
 #include "Servo.hpp"
 #include "Controller.hpp"
+#include "nRF24L01.hpp"
 
 
 int main(int argc, char **argv)
@@ -15,8 +16,9 @@ int main(int argc, char **argv)
 	if (new_argv1 != "0" && new_argv1 != "1")
         return (1);
     Servo servo;
+    nRF24L01 module;
 
-    std::cout << "Rc Car started ✔" << std::endl;
+    std::cout << Blue << " Server started " << Green << "✔" << std::endl;
     if (new_argv1 == "1")
     {
         Controller controller;
@@ -39,8 +41,16 @@ int main(int argc, char **argv)
     }
     else
     {
-        while(1)
+        int angle = 0;
+        int power = 0;
+        while (true)
         {
+            angle, power = module.ReceiveCommand(void);
+            std::cout << "Angle : " << angle << " Power : " << power << std::endl;
+        }
+        // while(1)
+        // {
+            // 1e value for turn the servo
             // std::cout << "← Gauche" << std::endl;
             // servo.MoveServo(273);
             // std::this_thread::sleep_for(std::chrono::seconds(2));
@@ -51,16 +61,17 @@ int main(int argc, char **argv)
             // servo.MoveServo(1);
             // std::this_thread::sleep_for(std::chrono::seconds(2));
 
-            std::cout << "← Gauche" << std::endl;
-            servo.MoveServo(207);
-            std::this_thread::sleep_for(std::chrono::seconds(2));
-            std::cout << "↓ Milieux ↓" << std::endl;
-            servo.MoveServo(137);
-            std::this_thread::sleep_for(std::chrono::seconds(2));
-            std::cout << "→ Droite" << std::endl;
-            servo.MoveServo(67);
-            std::this_thread::sleep_for(std::chrono::seconds(2));
-        }
+            // 2e good value for turn the servo
+            // std::cout << "← Gauche" << std::endl;
+            // servo.MoveServo(207);
+            // std::this_thread::sleep_for(std::chrono::seconds(2));
+            // std::cout << "↓ Milieux ↓" << std::endl;
+            // servo.MoveServo(137);
+            // std::this_thread::sleep_for(std::chrono::seconds(2));
+            // std::cout << "→ Droite" << std::endl;
+            // servo.MoveServo(67);
+            // std::this_thread::sleep_for(std::chrono::seconds(2));
+        // }
     }
     return (0);
 }
