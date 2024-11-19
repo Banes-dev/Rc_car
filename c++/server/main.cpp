@@ -47,7 +47,7 @@ int main(int argc, char **argv)
         int power = 0;
         while (true)
         {
-            angle, power = module.ReceiveCommand(angle, power);
+            module.ReceiveCommand(angle, power);
             std::cout << "Angle : " << angle << " Power : " << power << std::endl;
         }
         // while(1)
