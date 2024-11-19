@@ -3,7 +3,7 @@ COMP = c++
 CFLAGS = -g -Wall -Wextra -Werror
 
 # Normal
-NAME = Rc_car
+NAME = Server
 FUNC = main.cpp Servo.cpp Controller.cpp nRF24L01.cpp
 OBJS = ${FUNC:.cpp=.o}
 
