@@ -13,7 +13,12 @@ struct Command {
 // Construtor & Destructor
 nRF24L01::nRF24L01(void)
 {
-	radio.begin();
+	// radio.begin();
+    if (!radio.begin())
+    {
+        std::cerr << "Erreur : radio non initialisée correctement !" << std::endl;
+        return;
+    }
     radio.setPALevel(RF24_PA_HIGH);
     radio.setChannel(42);
     radio.openWritingPipe(this->_pipe);
