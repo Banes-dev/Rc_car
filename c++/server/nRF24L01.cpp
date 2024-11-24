@@ -2,7 +2,7 @@
 
 
 // Variable
-RF24 radio(22, 0);  // CE pin 22, CSN pin 24
+RF24 radio(22, 24);  // CE pin 22, CSN pin 24
 
 struct Command {
     int angle_recup;
