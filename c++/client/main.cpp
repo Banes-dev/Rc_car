@@ -19,7 +19,7 @@ int main(int argc, char **argv)
         module.SendCommand(42, 42);
         // delay(6);
         // Sleep(6);
-        std::this_thread::sleep_for(std::chrono::milliseconds(6)); // 6ms de delai
+        std::this_thread::sleep_for(std::chrono::milliseconds(100)); // 6ms de delai
     }
     return (0);
 }
