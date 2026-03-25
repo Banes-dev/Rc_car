@@ -83,16 +83,20 @@ void Controller::handleEvent(const SDL_Event& event, Servo& servo)
     //         break;
     // }
 
-    if (event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX) {
+    if (event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX)
+    {
         std::cout << "Mouvement de l'axe gauche X : " << event.caxis.value << std::endl;
 
-        // Gestion de la deadzone pour éviter des mouvements indésirables
-        const int DEADZONE = 8000;
-        if (abs(event.caxis.value) > DEADZONE) {
-            // Remappage de la valeur de l'axe vers un angle de servo
+        // deadzone value for movement
+        const int DEADZONE = 4000; // 8000
+        if (abs(event.caxis.value) > DEADZONE)
+        {
+            // remap stick value to servo value
             int new_angle = map(event.caxis.value, -32768, 32767, 207, 67);
             servo.MoveServo(new_angle);
         }
+        else
+			servo.MoveServo(137); // put in the middle
     }
 }
 
