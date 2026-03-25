@@ -1,4 +1,3 @@
-#include <iostream>
 #include <chrono>
 #include <thread>
 
@@ -11,25 +10,24 @@ int main(int argc, char **argv)
 {
     std::cout << "Test : " << argc << std::endl;
     if (argc != 2)
-    {
-        return (1);  
-    }
-	std::string new_argv1 = argv[1];
-	if (new_argv1 != "0" && new_argv1 != "1")
         return (1);
+
+	std::string vController = argv[1];
+	if (vController != "0" && vController != "1")
+        return (1);
+
     Servo servo;
-    nRF24L01 module;
+    // nRF24L01 module;
 
     std::cout << Blue << " Server started " << Green << "✔" << std::endl;
-    if (new_argv1 == "1")
+    if (vController == "1")
     {
         Controller controller;
 
-		// code avec la manette
 		bool running = true;
 		SDL_Event event;
 
-		// Boucle de gestion des événements
+		// sdl loop for check event on controller
 		while (running)
 		{
 			while (SDL_PollEvent(&event))
@@ -43,6 +41,8 @@ int main(int argc, char **argv)
     }
     else
     {
+        nRF24L01 module;
+
         int angle = 0;
         int power = 0;
         while (true)
