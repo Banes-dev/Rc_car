@@ -10,7 +10,9 @@ int main(int argc, char **argv)
 {
     std::cout << "Test : " << argc << std::endl;
     if (argc != 2)
+    {
         return (1);
+    }
 
 	std::string vController = argv[1];
 	if (vController != "0" && vController != "1")
