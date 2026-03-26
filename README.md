@@ -6,5 +6,9 @@ I manage firstly my servo motor for turn, after this my motor for forward and af
 
 ### To Do :
 - Mettre condensateur sur module nRF24L01 (x4)
-- Acheter batterie (pas mal de v, pas 7,4v il faut ++)
+- Acheter batterie (~3000mAh, 11.1V = lipo 3S) et acheter chargeur de batterie
 - Mettre batterie vers pin de redirection -> regulateur de tension pour raspberry pi 0, direct vers L298N pour alimenter moteur
+
+- Create motor class and manage motor with WiringPi (GPIO)
+- Replace servo manage with WiringPi to Pigpio, better PWM precision (needed for servo)
+- Communication between client and server with nRF24L01
