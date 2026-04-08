@@ -18,7 +18,8 @@ int main(int argc, char **argv)
 	if (vController != "0" && vController != "1")
         return (1);
 
-    Servo servo;
+    // Servo vServo;
+    Servo &vServo = Servo::getInstance();
     // nRF24L01 module;
 
     std::cout << Blue << " Server started " << Green << "✔" << std::endl;
@@ -36,7 +37,7 @@ int main(int argc, char **argv)
             {
                 if (event.type == SDL_QUIT)
 					running = false;
-                controller.handleEvent(event, servo);
+                controller.handleEvent(event, vServo);
             }
             SDL_Delay(16);
 		}
@@ -57,24 +58,24 @@ int main(int argc, char **argv)
         // {
             // 1e value for turn the servo
             // std::cout << "← Gauche" << std::endl;
-            // servo.MoveServo(273);
+            // vServo.MoveServo(273);
             // std::this_thread::sleep_for(std::chrono::seconds(2));
             // std::cout << "↓ Milieux ↓" << std::endl;
-            // servo.MoveServo(137);
+            // vServo.MoveServo(137);
             // std::this_thread::sleep_for(std::chrono::seconds(2));
             // std::cout << "→ Droite" << std::endl;
-            // servo.MoveServo(1);
+            // vServo.MoveServo(1);
             // std::this_thread::sleep_for(std::chrono::seconds(2));
 
             // 2e good value for turn the servo
             // std::cout << "← Gauche" << std::endl;
-            // servo.MoveServo(207);
+            // vServo.MoveServo(207);
             // std::this_thread::sleep_for(std::chrono::seconds(2));
             // std::cout << "↓ Milieux ↓" << std::endl;
-            // servo.MoveServo(137);
+            // vServo.MoveServo(137);
             // std::this_thread::sleep_for(std::chrono::seconds(2));
             // std::cout << "→ Droite" << std::endl;
-            // servo.MoveServo(67);
+            // vServo.MoveServo(67);
             // std::this_thread::sleep_for(std::chrono::seconds(2));
         // }
     }
