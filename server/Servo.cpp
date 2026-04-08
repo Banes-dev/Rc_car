@@ -51,7 +51,10 @@ void Servo::MoveServo(int angle)
     }
 
     // Conversion angle -> pulse width (µs)
-    int pulseWidth = 500 + (angle * 2000) / 180; // 500–2500 µs
+	int minPulse = 500;
+	int maxPulse = 2500;
+	int pulseWidth = minPulse + (angle * (maxPulse - minPulse)) / 180;
+    // int pulseWidth = 500 + (angle * 2000) / 180; // 500–2500 µs
 	// int pulseWidth = 1000 + (angle * 1000) / 180;
 
     gpioServo(this->mGpioPin, pulseWidth);
