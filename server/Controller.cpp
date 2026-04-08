@@ -92,11 +92,13 @@ void Controller::handleEvent(const SDL_Event& event, Servo& servo)
         if (abs(event.caxis.value) > DEADZONE)
         {
             // remap stick value to servo value
-            int new_angle = map(event.caxis.value, -32768, 32767, 207, 67);
+            // int new_angle = map(event.caxis.value, -32768, 32767, 207, 67); // old with wiringpi
+            int new_angle = map(event.caxis.value, -32768, 32767, 180, 0);
             servo.MoveServo(new_angle);
         }
         else
-			servo.MoveServo(137); // put in the middle
+            servo.MoveServo(90); // put in the middle
+		// servo.MoveServo(137); // put in the middle  // old with wiringpi
     }
 }
 
