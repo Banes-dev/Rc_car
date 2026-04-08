@@ -42,7 +42,7 @@ Servo::~Servo(void)
 // Move servo
 void Servo::MoveServo(int angle)
 {
-    std::cout << "Debut move servo" << std::endl;
+    // std::cout << "Debut move servo" << std::endl;
 
     if (angle < 0 || angle > 180)
     {
@@ -52,13 +52,11 @@ void Servo::MoveServo(int angle)
 
     // Conversion angle -> pulse width (µs)
 	int minPulse = 500;
-	int maxPulse = 2500;
+	int maxPulse = 2250;
 	int pulseWidth = minPulse + (angle * (maxPulse - minPulse)) / 180;
-    // int pulseWidth = 500 + (angle * 2000) / 180; // 500–2500 µs
-	// int pulseWidth = 1000 + (angle * 1000) / 180;
 
     gpioServo(this->mGpioPin, pulseWidth);
 
-    std::cout << "Pulse width: " << pulseWidth << " us" << std::endl;
-    std::cout << "Fin move servo" << std::endl;
+    // std::cout << "Pulse width: " << pulseWidth << " us" << std::endl;
+    // std::cout << "Fin move servo" << std::endl;
 }

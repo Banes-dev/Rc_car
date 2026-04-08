@@ -85,7 +85,7 @@ void Controller::handleEvent(const SDL_Event& event, Servo& servo)
 
     if (event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX)
     {
-        std::cout << "Mouvement de l'axe gauche X : " << event.caxis.value << std::endl;
+        // std::cout << "Mouvement of left axis X : " << event.caxis.value << std::endl;
 
         // deadzone value for movement
         const int DEADZONE = 4000; // 8000
