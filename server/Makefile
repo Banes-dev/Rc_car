@@ -11,8 +11,9 @@ OBJS = ${FUNC:.cpp=.o}
 # Compil
 all: 	${NAME}
 
+# For wiringPi = -lwiringPi; for pigpio = -lpigpio -lrt -lpthread
 ${NAME}: ${OBJS}
-	${COMP} ${CFLAGS} ${OBJS} -o ${NAME} -lwiringPi -lSDL2 -lrf24
+	${COMP} ${CFLAGS} ${OBJS} -o ${NAME} -lpigpio -lrt -lpthread -lSDL2 -lrf24
 
 %.o: %.cpp
 	${COMP} ${CFLAGS} -c $< -o $@
