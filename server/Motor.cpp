@@ -27,14 +27,13 @@ bool Motor::arm()
 
 void Motor::setThrottle(double throttle)
 {
-    throttle = std::clamp(throttle, -1.0, 1.0);
+    throttle = std::max(-1.0, std::min(throttle, 1.0));
 
     int pulse = NEUTRAL_PULSE;
-    if (throttle > 0.0) {
+    if (throttle > 0.0)
         pulse = NEUTRAL_PULSE + static_cast<int>(throttle * (MAX_PULSE - NEUTRAL_PULSE));
-    } else if (throttle < 0.0) {
+    else if (throttle < 0.0)
         pulse = NEUTRAL_PULSE + static_cast<int>(throttle * (NEUTRAL_PULSE - MIN_PULSE));
-    }
 
     gpioServo(mGpioPin, pulse);
 }
