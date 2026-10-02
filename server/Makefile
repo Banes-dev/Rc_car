@@ -4,7 +4,7 @@ CFLAGS = -g -Wall -Wextra -Werror
 
 # Normal
 NAME = Server
-FUNC = main.cpp Servo.cpp Controller.cpp nRF24L01.cpp
+FUNC = main.cpp Servo.cpp Motor.cpp Controller.cpp nRF24L01.cpp
 OBJS = ${FUNC:.cpp=.o}
 
 

@@ -1,25 +1,10 @@
 #include "Servo.hpp"
 
 
-Servo *Servo::_instance = nullptr;
-Servo &Servo::getInstance()
-{
-    if (!_instance)
-        _instance = new Servo();
-    return *_instance;
-}
-
 // Constructor & Destructor
-Servo::Servo(void) : mGpioPin(18) // GPIO BCM 18 recommandé pour servo
+Servo::Servo(int aPin) : mGpioPin(aPin)
 {
-    if (gpioInitialise() < 0)
-    {
-        std::cerr << "Error init pigpio ..." << std::endl;
-        exit(1);
-    }
-
     gpioSetMode(this->mGpioPin, PI_OUTPUT);
-
     std::cout << "Servo constructor has been called" << std::endl;
 }
 Servo::Servo(const Servo &copy) : mGpioPin(copy.mGpioPin)
@@ -29,18 +14,18 @@ Servo::Servo(const Servo &copy) : mGpioPin(copy.mGpioPin)
 Servo &Servo::operator=(const Servo &copy)
 {
     std::cout << "Servo copy assignment operator called" << std::endl;
-    this->mGpioPin = copy.mGpioPin;
+    if (this != &copy)
+        this->mGpioPin = copy.mGpioPin;
     return (*this);
 }
 Servo::~Servo(void)
 {
     gpioServo(this->mGpioPin, 0);
-    gpioTerminate();
     std::cout << "Servo destructor has been called" << std::endl;
 }
 
-// Move servo
-void Servo::MoveServo(int angle)
+// Other function
+void Servo::MoveServo(const int angle)
 {
     // std::cout << "Debut move servo" << std::endl;
 
@@ -51,12 +36,12 @@ void Servo::MoveServo(int angle)
     }
 
     // Conversion angle -> pulse width (µs)
-	int minPulse = 500;
-	int maxPulse = 2250;
+	const int minPulse = 500;
+	const int maxPulse = 2250;
 	int pulseWidth = minPulse + (angle * (maxPulse - minPulse)) / 180;
 
     gpioServo(this->mGpioPin, pulseWidth);
 
-    // std::cout << "Pulse width: " << pulseWidth << " us" << std::endl;
+    // std::cout << "Pulse width : " << pulseWidth << " us" << std::endl;
     // std::cout << "Fin move servo" << std::endl;
 }

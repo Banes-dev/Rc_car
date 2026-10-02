@@ -1,5 +1,9 @@
 #include "Servo.hpp"
 
+// in Controller.cpp ->
+// int new_angle = map(event.caxis.value, -32768, 32767, 207, 67); // old with wiringpi
+// servo.MoveServo(137); // put in the middle  // old with wiringpi
+
 
 // Construtor & Destructor
 Servo::Servo(void) : _gpio_pin(1)

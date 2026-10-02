@@ -1,32 +1,45 @@
 #include <chrono>
 #include <thread>
+#include <pigpio.h>
 
 #include "Servo.hpp"
 #include "Controller.hpp"
 #include "nRF24L01.hpp"
+#include "Color.hpp"
 
 
 int main(int argc, char **argv)
 {
     std::cout << "Test : " << argc << std::endl;
     if (argc != 2)
-    {
         return (1);
-    }
 
 	std::string vController = argv[1];
 	if (vController != "0" && vController != "1")
         return (1);
 
-    // Servo vServo;
-    Servo &vServo = Servo::getInstance();
-    // nRF24L01 module;
+    // Init pigpio
+    if (gpioInitialise() < 0)
+    {
+        std::cerr << Red << "Error init pigpio ..." << Reset_Color << std::endl;
+        return 1;
+    }
+
+    // Init Servo & Motor
+    Servo vServo(18);
+    Motor vMotor(19);
+    if (!vMotor.arm())
+    {
+        std::cerr << Red << "Erreur : Impossible d'armer le moteur." << Reset_Color << std::endl;
+        gpioTerminate();
+        return 1;
+    }
+    std::cout << Green << "ESC prêt !" << Reset_Color << std::endl;
 
     std::cout << Blue << " Server started " << Green << "✔" << std::endl;
     if (vController == "1")
     {
         Controller controller;
-
 		bool running = true;
 		SDL_Event event;
 
@@ -37,7 +50,7 @@ int main(int argc, char **argv)
             {
                 if (event.type == SDL_QUIT)
 					running = false;
-                controller.handleEvent(event, vServo);
+                controller.HandleEvent(event, vServo, vMotor);
             }
             SDL_Delay(16);
 		}
@@ -79,5 +92,8 @@ int main(int argc, char **argv)
             // std::this_thread::sleep_for(std::chrono::seconds(2));
         // }
     }
+
+    gpioTerminate();
+    std::cout << Blue << "Server stopped properly." << Reset_Color << std::endl;
     return (0);
 }
