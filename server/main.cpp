@@ -12,11 +12,13 @@ int main(int argc, char **argv)
 {
     std::cout << "Test : " << argc << std::endl;
     if (argc != 2)
-        return (1);
+    {
+        return 1;
+    }
 
 	std::string vController = argv[1];
 	if (vController != "0" && vController != "1")
-        return (1);
+        return 1;
 
     // Init pigpio
     if (gpioInitialise() < 0)
@@ -95,5 +97,5 @@ int main(int argc, char **argv)
 
     gpioTerminate();
     std::cout << Blue << "Server stopped properly." << Reset_Color << std::endl;
-    return (0);
+    return 0;
 }
