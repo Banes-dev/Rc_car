@@ -19,5 +19,5 @@ class nRF24L01
         ~nRF24L01(void);
 
         // Other function
-        void ReceiveCommand(int &angle, int &power);
+        bool ReceiveCommand(int &angle, int &power);
 };

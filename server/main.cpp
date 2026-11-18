@@ -25,12 +25,15 @@ int main(int argc, char **argv)
     }
 
     // Init Servo & Motor
+    {
     Servo vServo(18);
     Motor vMotor(19);
+    vServo.MoveServo(90);
     if (!vMotor.arm())
     {
         std::cerr << Deny << Red << "Error init Motor" << Reset_Color << std::endl;
-        gpioTerminate();
+        vServo.MoveServo(90);
+        vMotor.disable();
         return 1;
     }
     std::cout << Green << "ESC ready" << Valid << Reset_Color << std::endl;
@@ -39,7 +42,7 @@ int main(int argc, char **argv)
     if (vMode == "1")
     {
         Controller vController;
-        DL_Event vEvent;
+        SDL_Event vEvent;
 		bool vRunning = true;
 
 		// SDL loop for check event on controller
@@ -58,13 +61,24 @@ int main(int argc, char **argv)
     {
         nRF24L01 vModule;
 
-        int vAngle = 0;
+        int vAngle = 90;
         int vPower = 0;
+        auto vLastCommand = std::chrono::steady_clock::now();
         while (true)
         {
-            vModule.ReceiveCommand(vAngle, vPower);
-            std::cout << "Angle : " << vAngle << " Power : " << vPower << std::endl;
-            std::this_thread::sleep_for(std::chrono::milliseconds(100)); // 6ms of delay
+            if (vModule.ReceiveCommand(vAngle, vPower))
+                vLastCommand = std::chrono::steady_clock::now();
+
+            const auto elapsed = std::chrono::steady_clock::now() - vLastCommand;
+            if (elapsed > std::chrono::milliseconds(500))
+            {
+                vAngle = 90;
+                vPower = 0;
+            }
+
+            vServo.MoveServo(vAngle);
+            vMotor.setThrottle(static_cast<double>(vPower) / 100.0);
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
         // while(1)
         // {
@@ -90,6 +104,7 @@ int main(int argc, char **argv)
             // vServo.MoveServo(67);
             // std::this_thread::sleep_for(std::chrono::seconds(2));
         // }
+    }
     }
 
     gpioTerminate();

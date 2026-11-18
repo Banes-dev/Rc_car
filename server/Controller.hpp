@@ -16,8 +16,6 @@ class Controller
 
     public :
         Controller();
-        Controller(const Controller &copy);
-		Controller &operator=(const Controller &copy);
         ~Controller();
 
         // Other function

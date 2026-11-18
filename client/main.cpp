@@ -11,7 +11,7 @@ int main(int argc, char **argv)
     (void)argv;
     nRF24L01 module;
 
-    std::cout << Blue << " Client started " << Green << "✔" << std::endl;
+    std::cout << Green << "Client started" << Valid << std::endl;
     while(true)
     {
         // std::string command;

@@ -20,7 +20,8 @@ bool Motor::arm()
     if (gpioSetMode(mGpioPin, PI_OUTPUT) != 0)
         return false;
 
-    gpioServo(mGpioPin, NEUTRAL_PULSE);
+    if (gpioServo(mGpioPin, NEUTRAL_PULSE) < 0)
+        return false;
     sleep(2); // Let the ESC arm for 2 seconds
     return true;
 }

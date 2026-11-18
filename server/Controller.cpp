@@ -2,20 +2,20 @@
 
 
 // Construtor & Destructor
-Controller::Controller(void) : mController(nullptr)
+Controller::Controller(void) : mController(nullptr), _l2_value(0), _r2_value(0)
 {
     // Init SDL2 for controller
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER) < 0)
 	{
         std::cout << "Init issue with SDL, reason : " << SDL_GetError() << std::endl;
-        exit(1);
+        return;
     }
 
     // Check if any controller is connected
     if (SDL_NumJoysticks() < 1)
 	{
         std::cout << "No controller found ..." << std::endl;
-        exit(1);
+        return;
     }
 
     // Open the first available controller
@@ -23,21 +23,9 @@ Controller::Controller(void) : mController(nullptr)
     if (mController == nullptr)
 	{
         std::cout << "The controller cannot open, reason : " << SDL_GetError() << std::endl;
-		exit(1);
+		return;
     }
     std::cout << "Controller construtor has been called" << std::endl;
-}
-
-Controller::Controller(const Controller &copy) : mController(copy.mController)
-{
-	std::cout << "Controller copy constructor called" << std::endl;
-}
-
-Controller &Controller::operator=(const Controller &copy)
-{
-	std::cout << "Controller copy assignment operator called" << std::endl;
-	this->mController = copy.mController;
-	return (*this);
 }
 
 Controller::~Controller(void)
