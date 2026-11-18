@@ -53,7 +53,6 @@ int main(int argc, char **argv)
         {
             Controller vController;
             SDL_Event vEvent;
-            auto vLastControllerEvent = std::chrono::steady_clock::now();
 
             while (gRunning)
             {
@@ -64,16 +63,10 @@ int main(int argc, char **argv)
                     else
                     {
                         vController.HandleEvent(vEvent, vServo, vMotor);
-                        if (vEvent.type == SDL_CONTROLLERAXISMOTION || vEvent.type == SDL_CONTROLLERDEVICEREMOVED)
-                            vLastControllerEvent = std::chrono::steady_clock::now();
                     }
                 }
 
-                if (std::chrono::steady_clock::now() - vLastControllerEvent > std::chrono::milliseconds(500))
-                {
-                    vServo.MoveServo(90);
-                    vMotor.Stop();
-                }
+                vController.Update(vServo, vMotor);
                 SDL_Delay(16);
             }
         }

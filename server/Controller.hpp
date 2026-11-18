@@ -11,6 +11,7 @@ class Controller
 {
     private :
         SDL_GameController *mController;
+        SDL_Joystick *mJoystick;
         int mL2Value; // Etat de la gâchette gauche (frein/recul)
         int mR2Value; // Etat de la gâchette droite (accélération)
 
@@ -21,4 +22,5 @@ class Controller
         // Other function
         bool IsConnected() const;
 		void HandleEvent(const SDL_Event &Event, Servo &aServo, Motor &aMotor);
+        void Update(Servo &aServo, Motor &aMotor);
 };
