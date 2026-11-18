@@ -1,6 +1,6 @@
 COMP = c++
 
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -std=c++20 -g -Wall -Wextra -Werror
 
 # Normal
 NAME = Server

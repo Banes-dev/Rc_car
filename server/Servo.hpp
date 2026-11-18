@@ -15,4 +15,5 @@ class Servo
 
         // Other function
         void MoveServo(const int aAngle);
+        void disable();
 };

@@ -1,5 +1,7 @@
 #include "Controller.hpp"
 
+#include <string>
+#include <stdexcept>
 
 // Construtor & Destructor
 Controller::Controller(void) : mController(nullptr), _l2_value(0), _r2_value(0)
@@ -7,23 +9,22 @@ Controller::Controller(void) : mController(nullptr), _l2_value(0), _r2_value(0)
     // Init SDL2 for controller
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER) < 0)
 	{
-        std::cout << "Init issue with SDL, reason : " << SDL_GetError() << std::endl;
-        return;
+        throw std::runtime_error(std::string("Unable to initialize SDL: ") + SDL_GetError());
     }
 
     // Check if any controller is connected
     if (SDL_NumJoysticks() < 1)
 	{
-        std::cout << "No controller found ..." << std::endl;
-        return;
+        SDL_Quit();
+        throw std::runtime_error("No controller found");
     }
 
     // Open the first available controller
     mController = SDL_GameControllerOpen(0);
     if (mController == nullptr)
 	{
-        std::cout << "The controller cannot open, reason : " << SDL_GetError() << std::endl;
-		return;
+        SDL_Quit();
+        throw std::runtime_error(std::string("Unable to open controller: ") + SDL_GetError());
     }
     std::cout << "Controller construtor has been called" << std::endl;
 }
@@ -38,7 +39,7 @@ Controller::~Controller(void)
 
 
 // Other Function
-int map(int x, int in_min, int in_max, int out_min, int out_max)
+static int Map(int x, int in_min, int in_max, int out_min, int out_max)
 {
     return ((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min);
 }
@@ -68,6 +69,13 @@ void Controller::HandleEvent(const SDL_Event &aEvent, Servo &aServo, Motor &aMot
     //         break;
     // }
 
+    if (aEvent.type == SDL_CONTROLLERDEVICEREMOVED)
+    {
+        aServo.MoveServo(90);
+        aMotor.stop();
+        return;
+    }
+
     if (aEvent.type == SDL_CONTROLLERAXISMOTION)
     {
         // Handle left stick X-axis
@@ -80,7 +88,7 @@ void Controller::HandleEvent(const SDL_Event &aEvent, Servo &aServo, Motor &aMot
             if (std::abs(aEvent.caxis.value) > DEADZONE)
             {
                 // remap stick value to servo value
-                int new_angle = map(aEvent.caxis.value, -32768, 32767, 180, 0);
+                int new_angle = Map(aEvent.caxis.value, -32768, 32767, 180, 0);
                 aServo.MoveServo(new_angle);
             }
             else

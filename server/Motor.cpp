@@ -1,5 +1,7 @@
 #include "Motor.hpp"
 
+#include <cmath>
+#include <stdexcept>
 
 // Constructor & Destructor
 Motor::Motor(int aPin) : mGpioPin(aPin)
@@ -18,8 +20,7 @@ Motor::~Motor()
 bool Motor::arm()
 {
     if (gpioSetMode(mGpioPin, PI_OUTPUT) != 0)
-        return false;
-
+        throw std::runtime_error("Unable to configure motor GPIO pin");
     if (gpioServo(mGpioPin, NEUTRAL_PULSE) < 0)
         return false;
     sleep(2); // Let the ESC arm for 2 seconds
@@ -28,6 +29,9 @@ bool Motor::arm()
 
 void Motor::setThrottle(double aThrottle)
 {
+    if (!std::isfinite(aThrottle))
+        throw std::invalid_argument("Motor throttle must be a finite value");
+
     aThrottle = std::max(-1.0, std::min(aThrottle, 1.0));
 
     int pulse = NEUTRAL_PULSE;
@@ -36,7 +40,8 @@ void Motor::setThrottle(double aThrottle)
     else if (aThrottle < 0.0)
         pulse = NEUTRAL_PULSE + static_cast<int>(aThrottle * (NEUTRAL_PULSE - MIN_PULSE));
 
-    gpioServo(mGpioPin, pulse);
+    if (gpioServo(mGpioPin, pulse) < 0)
+        throw std::runtime_error("Unable to send motor PWM command");
 }
 
 void Motor::stop()
