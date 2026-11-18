@@ -1,6 +1,8 @@
 #include "nRF24L01.hpp"
 #include "../shared/Command.hpp"
 
+#include <stdexcept>
+
 // Variable
 RF24 radio(22, 0);  // CE pin 22, CSN pin 24
 
@@ -9,8 +11,7 @@ nRF24L01::nRF24L01(void)
 {
 	if (!radio.begin())
     {
-        std::cerr << "Erreur : radio non initialisée correctement !" << std::endl;
-        exit(EXIT_FAILURE);
+        throw std::runtime_error("Radio non initialisée correctement");
     }
     radio.setDataRate(RF24_250KBPS);
     radio.setRetries(3, 5);

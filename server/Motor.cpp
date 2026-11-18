@@ -23,7 +23,7 @@ bool Motor::Arm()
         throw std::runtime_error("Unable to configure motor GPIO pin");
     if (gpioServo(mGpioPin, NEUTRAL_PULSE) < 0)
         return false;
-    sleep(2); // Let the ESC arm for 2 seconds
+    std::this_thread::sleep_for(std::chrono::seconds(2)); // Let the ESC arm for 2 seconds
     return true;
 }
 

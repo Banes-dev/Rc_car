@@ -157,9 +157,9 @@ void Controller::HandleEvent(const SDL_Event &aEvent, Servo &aServo, Motor &aMot
                 aServo.MoveServo(90);
         }
         else if (aEvent.jaxis.axis == 2)
-            mL2Value = std::max(0, aEvent.jaxis.value);
+            mL2Value = std::max(0, static_cast<int>(aEvent.jaxis.value));
         else if (aEvent.jaxis.axis == 5)
-            mR2Value = std::max(0, aEvent.jaxis.value);
+            mR2Value = std::max(0, static_cast<int>(aEvent.jaxis.value));
 
         double throttle = static_cast<double>(mR2Value) / 32767.0
                         - static_cast<double>(mL2Value) / 32767.0;
