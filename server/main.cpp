@@ -43,7 +43,7 @@ int main(int argc, char **argv)
         Motor vMotor(19);
         vServo.MoveServo(90);
 
-        if (!vMotor.arm())
+        if (!vMotor.Arm())
             throw std::runtime_error("Unable to arm motor ESC");
 
         std::cout << Green << "ESC ready" << Valid << Reset_Color << std::endl;
@@ -72,7 +72,7 @@ int main(int argc, char **argv)
                 if (std::chrono::steady_clock::now() - vLastControllerEvent > std::chrono::milliseconds(500))
                 {
                     vServo.MoveServo(90);
-                    vMotor.stop();
+                    vMotor.Stop();
                 }
                 SDL_Delay(16);
             }
@@ -97,7 +97,7 @@ int main(int argc, char **argv)
                 }
 
                 vServo.MoveServo(vAngle);
-                vMotor.setThrottle(static_cast<double>(vPower) / 100.0);
+                vMotor.SetThrottle(static_cast<double>(vPower) / 100.0);
                 std::this_thread::sleep_for(std::chrono::milliseconds(10));
             }
 

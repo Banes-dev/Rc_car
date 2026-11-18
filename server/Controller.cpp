@@ -72,7 +72,7 @@ void Controller::HandleEvent(const SDL_Event &aEvent, Servo &aServo, Motor &aMot
     if (aEvent.type == SDL_CONTROLLERDEVICEREMOVED)
     {
         aServo.MoveServo(90);
-        aMotor.stop();
+        aMotor.Stop();
         return;
     }
 
@@ -109,6 +109,6 @@ void Controller::HandleEvent(const SDL_Event &aEvent, Servo &aServo, Motor &aMot
         double brake = static_cast<double>(mL2Value) / 32767.0;
         double throttle = accel - brake; 
 
-        aMotor.setThrottle(throttle);
+        aMotor.SetThrottle(throttle);
     }
 }
