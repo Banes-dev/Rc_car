@@ -11,10 +11,8 @@ class Servo
     public :
         // Constructor & Destructor
         explicit Servo (int aPin = 18); // GPIO BCM 18 recommended for servo
-        Servo(const Servo &copy);
-		Servo& operator=(const Servo &copy);
-        ~Servo(void);
+        ~Servo();
 
         // Other function
-        void MoveServo(const int angle);
+        void MoveServo(const int aAngle);
 };

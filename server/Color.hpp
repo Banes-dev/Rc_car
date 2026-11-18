@@ -17,3 +17,7 @@
 # define Arrow_down "↓"
 # define Arrow_right "→"
 # define Arrow_left "←"
+
+// Symbols
+# define Valid "✅"
+# define Deny "❌"

@@ -19,9 +19,9 @@ class Motor
         ~Motor();
 
         // Other function
-        void MoveMotor(int power);
+        void MoveMotor(int aPower);
         bool arm();
-        void setThrottle(double throttle);
+        void setThrottle(double aThrottle);
         void stop();
         void disable();
 };

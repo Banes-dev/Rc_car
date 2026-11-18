@@ -2,28 +2,25 @@
 #include <thread>
 #include <pigpio.h>
 
+#include "Color.hpp"
 #include "Servo.hpp"
 #include "Controller.hpp"
 #include "nRF24L01.hpp"
-#include "Color.hpp"
 
 
 int main(int argc, char **argv)
 {
-    std::cout << "Test : " << argc << std::endl;
     if (argc != 2)
-    {
         return 1;
-    }
 
-	std::string vController = argv[1];
-	if (vController != "0" && vController != "1")
+	std::string vMode = argv[1];
+	if (vMode != "0" && vMode != "1")
         return 1;
 
     // Init pigpio
     if (gpioInitialise() < 0)
     {
-        std::cerr << Red << "Error init pigpio ..." << Reset_Color << std::endl;
+        std::cerr << Deny << Red << "Error init pigpio" << Reset_Color << std::endl;
         return 1;
     }
 
@@ -32,42 +29,42 @@ int main(int argc, char **argv)
     Motor vMotor(19);
     if (!vMotor.arm())
     {
-        std::cerr << Red << "Erreur : Impossible d'armer le moteur." << Reset_Color << std::endl;
+        std::cerr << Deny << Red << "Error init Motor" << Reset_Color << std::endl;
         gpioTerminate();
         return 1;
     }
-    std::cout << Green << "ESC prêt !" << Reset_Color << std::endl;
+    std::cout << Green << "ESC ready" << Valid << Reset_Color << std::endl;
 
-    std::cout << Blue << " Server started " << Green << "✔" << std::endl;
-    if (vController == "1")
+    std::cout << Blue << " Server started " << Valid << std::endl;
+    if (vMode == "1")
     {
-        Controller controller;
-		bool running = true;
-		SDL_Event event;
+        Controller vController;
+        DL_Event vEvent;
+		bool vRunning = true;
 
-		// sdl loop for check event on controller
-		while (running)
+		// SDL loop for check event on controller
+		while (vRunning)
 		{
-			while (SDL_PollEvent(&event))
+			while (SDL_PollEvent(&vEvent))
             {
-                if (event.type == SDL_QUIT)
-					running = false;
-                controller.HandleEvent(event, vServo, vMotor);
+                if (vEvent.type == SDL_QUIT)
+					vRunning = false;
+                vController.HandleEvent(vEvent, vServo, vMotor);
             }
             SDL_Delay(16);
 		}
     }
     else
     {
-        nRF24L01 module;
+        nRF24L01 vModule;
 
-        int angle = 0;
-        int power = 0;
+        int vAngle = 0;
+        int vPower = 0;
         while (true)
         {
-            module.ReceiveCommand(angle, power);
-            std::cout << "Angle : " << angle << " Power : " << power << std::endl;
-            std::this_thread::sleep_for(std::chrono::milliseconds(100)); // 6ms de delai
+            vModule.ReceiveCommand(vAngle, vPower);
+            std::cout << "Angle : " << vAngle << " Power : " << vPower << std::endl;
+            std::this_thread::sleep_for(std::chrono::milliseconds(100)); // 6ms of delay
         }
         // while(1)
         // {
@@ -96,6 +93,6 @@ int main(int argc, char **argv)
     }
 
     gpioTerminate();
-    std::cout << Blue << "Server stopped properly." << Reset_Color << std::endl;
+    std::cout << Blue << "Server stopped properly" << Reset_Color << std::endl;
     return 0;
 }

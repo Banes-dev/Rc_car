@@ -21,19 +21,19 @@ bool Motor::arm()
         return false;
 
     gpioServo(mGpioPin, NEUTRAL_PULSE);
-    sleep(2); // Laisse l'ESC s'initialiser
+    sleep(2); // Let the ESC arm for 2 seconds
     return true;
 }
 
-void Motor::setThrottle(double throttle)
+void Motor::setThrottle(double aThrottle)
 {
-    throttle = std::max(-1.0, std::min(throttle, 1.0));
+    aThrottle = std::max(-1.0, std::min(aThrottle, 1.0));
 
     int pulse = NEUTRAL_PULSE;
-    if (throttle > 0.0)
-        pulse = NEUTRAL_PULSE + static_cast<int>(throttle * (MAX_PULSE - NEUTRAL_PULSE));
-    else if (throttle < 0.0)
-        pulse = NEUTRAL_PULSE + static_cast<int>(throttle * (NEUTRAL_PULSE - MIN_PULSE));
+    if (aThrottle > 0.0)
+        pulse = NEUTRAL_PULSE + static_cast<int>(aThrottle * (MAX_PULSE - NEUTRAL_PULSE));
+    else if (aThrottle < 0.0)
+        pulse = NEUTRAL_PULSE + static_cast<int>(aThrottle * (NEUTRAL_PULSE - MIN_PULSE));
 
     gpioServo(mGpioPin, pulse);
 }
