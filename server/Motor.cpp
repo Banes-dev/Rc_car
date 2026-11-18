@@ -11,13 +11,13 @@ Motor::Motor(int aPin) : mGpioPin(aPin)
 
 Motor::~Motor()
 {
-    stop();
-    disable();
+    Stop();
+    Disable();
     std::cout << "Motor destructor called" << std::endl;
 }
 
 // Other function
-bool Motor::arm()
+bool Motor::Arm()
 {
     if (gpioSetMode(mGpioPin, PI_OUTPUT) != 0)
         throw std::runtime_error("Unable to configure motor GPIO pin");
@@ -27,7 +27,7 @@ bool Motor::arm()
     return true;
 }
 
-void Motor::setThrottle(double aThrottle)
+void Motor::SetThrottle(double aThrottle)
 {
     if (!std::isfinite(aThrottle))
         throw std::invalid_argument("Motor throttle must be a finite value");
@@ -44,12 +44,12 @@ void Motor::setThrottle(double aThrottle)
         throw std::runtime_error("Unable to send motor PWM command");
 }
 
-void Motor::stop()
+void Motor::Stop()
 {
     gpioServo(mGpioPin, NEUTRAL_PULSE);
 }
 
-void Motor::disable()
+void Motor::Disable()
 {
     gpioServo(mGpioPin, 0);
 }

@@ -4,7 +4,7 @@
 #include <stdexcept>
 
 // Construtor & Destructor
-Controller::Controller(void) : mController(nullptr), _l2_value(0), _r2_value(0)
+Controller::Controller(void) : mController(nullptr), mL2Value(0), mR2Value(0)
 {
     // Init SDL2 for controller
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER) < 0)
@@ -96,17 +96,17 @@ void Controller::HandleEvent(const SDL_Event &aEvent, Servo &aServo, Motor &aMot
         }
         // Handle L2
         else if (aEvent.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT)
-            _l2_value = aEvent.caxis.value; // de 0 à 32767
+            mL2Value = aEvent.caxis.value; // de 0 à 32767
         
         // Handle R2
         else if (aEvent.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT)
-            _r2_value = aEvent.caxis.value; // de 0 à 32767
+            mR2Value = aEvent.caxis.value; // de 0 à 32767
 
 
         // On calcule la vitesse (Throttle) à chaque mouvement d'axe
         // R2 pousse vers 1.0 (avant), L2 pousse vers -1.0 (arrière)
-        double accel = static_cast<double>(_r2_value) / 32767.0;
-        double brake = static_cast<double>(_l2_value) / 32767.0;
+        double accel = static_cast<double>(mR2Value) / 32767.0;
+        double brake = static_cast<double>(mL2Value) / 32767.0;
         double throttle = accel - brake; 
 
         aMotor.setThrottle(throttle);

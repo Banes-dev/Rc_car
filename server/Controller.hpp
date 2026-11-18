@@ -11,8 +11,8 @@ class Controller
 {
     private :
         SDL_GameController *mController;
-        int _l2_value; // Etat de la gâchette gauche (frein/recul)
-        int _r2_value; // Etat de la gâchette droite (accélération)
+        int mL2Value; // Etat de la gâchette gauche (frein/recul)
+        int mR2Value; // Etat de la gâchette droite (accélération)
 
     public :
         Controller();
