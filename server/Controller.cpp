@@ -67,6 +67,14 @@ static int Map(int x, int in_min, int in_max, int out_min, int out_max)
     return ((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min);
 }
 
+static int NormalizeTrigger(int value)
+{
+    const int DEADZONE = 800;
+    if (value <= DEADZONE)
+        return 0;
+    return std::min(value, 32767);
+}
+
 bool Controller::IsConnected() const
 {
     return (mController != nullptr || mJoystick != nullptr);
@@ -135,8 +143,8 @@ void Controller::HandleEvent(const SDL_Event &aEvent, Servo &aServo, Motor &aMot
 
         // On calcule la vitesse (Throttle) à chaque mouvement d'axe
         // R2 pousse vers 1.0 (avant), L2 pousse vers -1.0 (arrière)
-        double accel = static_cast<double>(std::max(0, mR2Value)) / 32767.0;
-        double brake = static_cast<double>(std::max(0, mL2Value)) / 32767.0;
+        double accel = static_cast<double>(NormalizeTrigger(mR2Value)) / 32767.0;
+        double brake = static_cast<double>(NormalizeTrigger(mL2Value)) / 32767.0;
         double throttle = accel - brake; 
 
         aMotor.SetThrottle(throttle);
@@ -157,12 +165,12 @@ void Controller::HandleEvent(const SDL_Event &aEvent, Servo &aServo, Motor &aMot
                 aServo.MoveServo(90);
         }
         else if (aEvent.jaxis.axis == 2)
-            mL2Value = std::max(0, static_cast<int>(aEvent.jaxis.value));
+            mL2Value = NormalizeTrigger(static_cast<int>(aEvent.jaxis.value));
         else if (aEvent.jaxis.axis == 5)
-            mR2Value = std::max(0, static_cast<int>(aEvent.jaxis.value));
+            mR2Value = NormalizeTrigger(static_cast<int>(aEvent.jaxis.value));
 
-        double throttle = static_cast<double>(mR2Value) / 32767.0
-                        - static_cast<double>(mL2Value) / 32767.0;
+        double throttle = static_cast<double>(NormalizeTrigger(mR2Value)) / 32767.0
+                        - static_cast<double>(NormalizeTrigger(mL2Value)) / 32767.0;
         aMotor.SetThrottle(throttle);
     }
 }
@@ -187,8 +195,8 @@ void Controller::Update(Servo &aServo, Motor &aMotor)
         else
             aServo.MoveServo(90);
 
-        int normalizedLeft = std::max(0, mL2Value);
-        int normalizedRight = std::max(0, mR2Value);
+        int normalizedLeft = NormalizeTrigger(mL2Value);
+        int normalizedRight = NormalizeTrigger(mR2Value);
         double throttle = static_cast<double>(normalizedRight) / 32767.0
                         - static_cast<double>(normalizedLeft) / 32767.0;
         aMotor.SetThrottle(throttle);
@@ -199,8 +207,8 @@ void Controller::Update(Servo &aServo, Motor &aMotor)
         int leftTrigger = SDL_JoystickGetAxis(mJoystick, 2);
         int rightTrigger = SDL_JoystickGetAxis(mJoystick, 5);
 
-        mL2Value = std::max(0, leftTrigger);
-        mR2Value = std::max(0, rightTrigger);
+        mL2Value = NormalizeTrigger(leftTrigger);
+        mR2Value = NormalizeTrigger(rightTrigger);
 
         const int DEADZONE = 4000;
         if (std::abs(leftX) > DEADZONE)
