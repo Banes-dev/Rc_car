@@ -119,8 +119,6 @@ void Controller::HandleEvent(const SDL_Event &aEvent, Servo &aServo, Motor &aMot
         // Handle left stick X-axis
         if (aEvent.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX)
         {
-            // std::cout << "Mouvement of left axis X : " << aEvent.caxis.value << std::endl;
-
             // deadzone value for movement
             const int DEADZONE = 4000; // 8000
             if (std::abs(aEvent.caxis.value) > DEADZONE)
@@ -188,16 +186,6 @@ void Controller::Update(Servo &aServo, Motor &aMotor)
 
         mL2Value = leftTrigger;
         mR2Value = rightTrigger;
-
-        static int lastLeftTrigger = 0;
-        static int lastRightTrigger = 0;
-        if (leftTrigger != lastLeftTrigger || rightTrigger != lastRightTrigger)
-        {
-            std::cout << "Triggers L2=" << leftTrigger
-                      << " R2=" << rightTrigger << std::endl;
-            lastLeftTrigger = leftTrigger;
-            lastRightTrigger = rightTrigger;
-        }
 
         const int DEADZONE = 4000;
         if (std::abs(leftX) > DEADZONE)

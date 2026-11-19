@@ -18,8 +18,6 @@ Servo::~Servo()
 // Other function
 void Servo::MoveServo(const int aAngle)
 {
-    // std::cout << "Debut move servo" << std::endl;
-
     if (aAngle < 0 || aAngle > 180)
         throw std::invalid_argument("Servo angle must be between 0 and 180");
 
