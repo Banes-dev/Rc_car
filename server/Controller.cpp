@@ -189,6 +189,16 @@ void Controller::Update(Servo &aServo, Motor &aMotor)
         mL2Value = leftTrigger;
         mR2Value = rightTrigger;
 
+        static int lastLeftTrigger = 0;
+        static int lastRightTrigger = 0;
+        if (leftTrigger != lastLeftTrigger || rightTrigger != lastRightTrigger)
+        {
+            std::cout << "Triggers L2=" << leftTrigger
+                      << " R2=" << rightTrigger << std::endl;
+            lastLeftTrigger = leftTrigger;
+            lastRightTrigger = rightTrigger;
+        }
+
         const int DEADZONE = 4000;
         if (std::abs(leftX) > DEADZONE)
             aServo.MoveServo(Map(leftX, -32768, 32767, 180, 0));

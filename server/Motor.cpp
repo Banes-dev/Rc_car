@@ -23,6 +23,7 @@ bool Motor::Arm()
         throw std::runtime_error("Unable to configure motor GPIO pin");
     if (gpioServo(mGpioPin, NEUTRAL_PULSE) < 0)
         return false;
+    std::cout << "Motor arming pulse: " << NEUTRAL_PULSE << " us" << std::endl;
     std::this_thread::sleep_for(std::chrono::seconds(2)); // Let the ESC arm for 2 seconds
     return true;
 }
@@ -39,6 +40,14 @@ void Motor::SetThrottle(double aThrottle)
         pulse = NEUTRAL_PULSE + static_cast<int>(aThrottle * (MAX_PULSE - NEUTRAL_PULSE));
     else if (aThrottle < 0.0)
         pulse = NEUTRAL_PULSE + static_cast<int>(aThrottle * (NEUTRAL_PULSE - MIN_PULSE));
+
+    static int lastPulse = NEUTRAL_PULSE;
+    if (pulse != lastPulse)
+    {
+        std::cout << "Motor throttle: " << aThrottle
+                  << " pulse: " << pulse << " us" << std::endl;
+        lastPulse = pulse;
+    }
 
     if (gpioServo(mGpioPin, pulse) < 0)
         throw std::runtime_error("Unable to send motor PWM command");
